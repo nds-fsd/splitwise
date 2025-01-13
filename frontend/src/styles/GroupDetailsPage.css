@@ -1,0 +1,233 @@
+/* General Page Styles */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+.column {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+.page-container {
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 30px; /* Aumentamos el padding general */
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Aumentamos el margen inferior */
+}
+
+.header h1 {
+  font-size: 24px;
+  color: #4CAF50;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px; /* Espaciado entre los botones de navegación */
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: #4CAF50;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav-links .active {
+  border-bottom: 2px solid #4CAF50;
+}
+
+.user-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: #fff;
+  padding: 8px 15px; /* Aumentamos un poco el padding */
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px; /* Aumentamos la separación entre tarjetas */
+  padding: 20px; /* Más padding interno */
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 15px; /* Separación del título con el contenido */
+  color: #4CAF50;
+}
+
+/* List Styles */
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.6; /* Espaciado entre líneas */
+}
+
+.card ul li strong {
+  color: #4CAF50;
+}
+
+/* Group Form Styles */
+.form-container {
+  background-color: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px; /* Más espacio interno */
+  margin-top: 15px; /* Espaciado superior */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h3 {
+  margin-bottom: 20px; /* Más espacio debajo del título */
+  font-size: 18px;
+  color: #333;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 15px; /* Más separación entre etiquetas */
+  font-size: 14px;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 10px; /* Aumentamos el padding interno */
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-container .member-input {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Más espacio entre los inputs y el botón */
+  margin-bottom: 15px; /* Separación entre filas de miembros */
+}
+
+.member-input input {
+  flex: 1;
+}
+
+.member-input button {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.member-input button:hover {
+  background-color: #e43b3d;
+}
+
+.form-container button[type="submit"] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.form-buttons button {
+  margin-right: 10px;
+}
+
+/* Add Group Button */
+.add-group-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 20px; /* Separación del botón con el listado */
+}
+
+.add-group-btn:hover {
+  background-color: #45a049;
+}
+
+/* Floating Button */
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.floating-btn:hover {
+  background-color: #45a049;
+}
+
+/* Groups Card Styles */
+.groups-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px; /* Separación inferior con el botón */
+}
+
+.groups-card ul li {
+  padding: 10px 0; /* Más espacio entre elementos */
+  border-bottom: 1px solid #eee;
+}
+
+.groups-card ul li:last-child {
+  border-bottom: none;
+}

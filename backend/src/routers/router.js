@@ -1,15 +1,12 @@
-const express = require('express');
-const userRoutes = require('./userrouter');
-const groupExpensesRouter = require('./groupExpensesRouter');
-const userExpensesRouter = require('./userExpensesRouter');
-const groupRoutes = require('./group.routes')
-
+const express = require("express");
+const userRoutes = require("./user.routes")
+const groupExpensesRouter = require("./expense.routes");
+const groupRoutes = require("./group.routes");
 
 const router = express.Router();
 
-router.use('/group', groupExpensesRouter);
-router.use('/user', userExpensesRouter);
-router.use('/users', userRoutes);
-router.use('/groups', groupRoutes);
+router.use("/group", groupExpensesRouter);
+router.use("/user", userRoutes);
+router.use("/group", groupRoutes);
 
 module.exports = router;

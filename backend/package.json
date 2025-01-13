@@ -5,12 +5,10 @@
   "author": "Jose Manuel Cano <jmcano94@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
-
   "devDependencies": {
     "nodemon": "^2.0.20"
   },

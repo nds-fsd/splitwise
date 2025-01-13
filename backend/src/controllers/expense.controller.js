@@ -1,6 +1,6 @@
-const Expense = require("../data/schemas/expenseSchema");
-const User = require("../data/schemas/userSchema");
-const Group = require("../data/schemas/groupSchema");
+const Expense = require("../schemas/expense.schema");
+const User = require("../schemas/user.schema");
+const Group = require("../schemas/group.schema");
 const mongoose = require("mongoose");
 
 const createExpense = async (req, res) => {

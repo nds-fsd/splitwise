@@ -7,9 +7,11 @@ const router = require('./routers/router');
 app.use(cors());
 app.use(express.json());
 
-app.use('/', router);
+app.use('/api', router);
 
-connectDB().then(() => console.log('Connected to database!'));
+connectDB()
+.then(() => console.log('Connected to database!'));
+
 
 const port = process.env.PORT || 3001;
 

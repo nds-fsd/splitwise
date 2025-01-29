@@ -1,11 +1,24 @@
 import { Link, Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
+import styles from './Layout.module.css';
+import { Slide, ToastContainer } from 'react-toastify';
 const Layout = () => {
     return (
-        <div>
+        <div className={styles.app}>
             <Header />
-            <main>
+            <main className={styles.main}>
                 <Outlet />
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    closeOnClick={false}
+                    pauseOnHover={true}
+                    draggable
+                    progress={undefined}
+                    theme="dark"
+                    transition={Slide}
+                />
             </main>
         </div>
     );

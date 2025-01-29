@@ -1,0 +1,25 @@
+.icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+.add {
+    position: fixed;
+    bottom: 15px;
+    right: 35px;
+    width: 45px;
+    height: 45px;
+    color: #3c8ccd;
+    border: none;
+    transition: all 300ms ease-in-out;
+}
+
+.add:hover {
+    color: #1e90ff;
+}

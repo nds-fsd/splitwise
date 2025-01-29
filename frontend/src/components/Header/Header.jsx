@@ -3,7 +3,7 @@ import styles from './header.module.css';
 const Header = () => {
     return (
         <header className={styles.header}>
-            <div className={styles.logo}>DivvyUp</div>
+            <h1 className={styles.logo}>DivvyUp</h1>
             <nav className={styles.nav}>
                 <Link to="/friends" className={styles.navItem}>Friends</Link>
                 <Link to="/groups" className={styles.navItem}>Groups</Link>

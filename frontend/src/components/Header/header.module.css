@@ -7,8 +7,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #f5f5f5;
+    padding: 10px 0;
+    width: min(90%, 120rem);
+    margin: 0 auto;
 }
 
 .logo {
@@ -37,7 +38,8 @@ body {
 }
 
 .navItem:hover {
-    background-color: #ddd;
+    background-color: #1e90ff;
+
 }
 
 .profile {
@@ -48,4 +50,5 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }

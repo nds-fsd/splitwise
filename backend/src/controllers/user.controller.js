@@ -19,6 +19,16 @@ exports.createUser = async (req, res) => {
         res.status(500).json({ message: 'Error al crear el usuario', error });
     }
 };
+exports.getCurrentUser = async (req, res) => {
+    try {
+        const userId = req.jwtPayload.id;
+        const CurrentUser = await User.findById(userId);
+        res.status(200).json(CurrentUser);    
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al cargar el usuario solicitado', error });
+    }
+}
 
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {

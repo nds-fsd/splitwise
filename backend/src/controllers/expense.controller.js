@@ -8,6 +8,10 @@ const createExpense = async (req, res) => {
         const { groupId } = req.params;
         const { description, totalAmount, paidBy, participants } = req.body;
 
+        if (!mongoose.Types.ObjectId.isValid(groupId)) {
+            return res.status(400).json({ error: "Invalid group or expense ID" });
+        }
+
         if (!description || !totalAmount || !groupId || !paidBy || !participants || participants.length === 0) {
             return res.status(400).json({ error: "Incomplete data" });
         }
@@ -22,12 +26,16 @@ const createExpense = async (req, res) => {
             return res.status(400).json({ error: "User paying the expense does not exist" });
         }
 
-        const groupMembers = groupExists.members.map((m) => m._id.toString());
+        const groupMembers = groupExists.members.map((m) => m.user.toString());
         if (!groupMembers.includes(paidBy.toString())) {
             return res.status(400).json({ error: "Payer is not part of the group" });
         }
 
-        const participantIds = participants.map((p) => p.user);
+        // Format Participants
+        const formatedParticipants = participants.map((participant) => ({ user: participant }))
+
+        // Verify participants exists as users
+        const participantIds = formatedParticipants.map((p) => p.user);
         const participantsExist = await User.find({ _id: { $in: participantIds } });
         if (participantsExist.length !== participantIds.length) {
             return res.status(400).json({ error: "One or more participants are not valid users" });
@@ -42,18 +50,14 @@ const createExpense = async (req, res) => {
             return res.status(400).json({ error: "Total amount must be greater than 0" });
         }
 
-        const totalParticipants = participants.length + 1;
+        const totalParticipants = participants.length;
         const amountPerParticipant = totalAmount / totalParticipants;
+        const roundedAmount = amountPerParticipant.toFixed(2);
 
-        const updatedParticipants = participants.map((p) => ({
+        const updatedParticipants = formatedParticipants.map((p) => ({
             user: p.user,
-            amountOwed: amountPerParticipant,
+            amountOwed: roundedAmount,
         }));
-
-        updatedParticipants.push({
-            user: paidBy,
-            amountOwed: 0,
-        });
 
         const newExpense = await Expense.create({
             description,
@@ -63,7 +67,9 @@ const createExpense = async (req, res) => {
             participants: updatedParticipants,
         });
 
-        res.status(201).json({ message: "Expense successfully created", expense: newExpense });
+        const expense = await Expense.findById(newExpense._id).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
+
+        res.status(201).json(expense);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Error creating expense" });
@@ -98,12 +104,16 @@ const updateExpense = async (req, res) => {
             return res.status(400).json({ error: "Group does not exist" });
         }
 
-        const groupMembers = groupExists.members.map((m) => m._id.toString());
+        const groupMembers = groupExists.members.map((m) => m.user.toString());
         if (!groupMembers.includes(paidBy.toString())) {
             return res.status(400).json({ error: "Payer is not part of the group" });
         }
 
-        const participantIds = participants.map((p) => p.user);
+        // Format Participants
+        const formatedParticipants = participants.map((participant) => ({ user: participant }))
+
+        // Verify participants exists as users
+        const participantIds = formatedParticipants.map((p) => p.user);
         const participantsExist = await User.find({ _id: { $in: participantIds } });
         if (participantsExist.length !== participantIds.length) {
             return res.status(400).json({ error: "One or more participants are not valid users" });
@@ -118,18 +128,14 @@ const updateExpense = async (req, res) => {
             return res.status(400).json({ error: "Total amount must be greater than 0" });
         }
 
-        const totalParticipants = participants.length + 1;
+        const totalParticipants = participants.length;
         const amountPerParticipant = totalAmount / totalParticipants;
+        const roundedAmount = amountPerParticipant.toFixed(2);
 
-        const updatedParticipants = participants.map((p) => ({
+        const updatedParticipants = formatedParticipants.map((p) => ({
             user: p.user,
-            amountOwed: amountPerParticipant,
+            amountOwed: roundedAmount,
         }));
-
-        updatedParticipants.push({
-            user: paidBy,
-            amountOwed: 0,
-        });
 
         const updatedExpense = await Expense.findByIdAndUpdate(expenseId, {
             description,
@@ -140,8 +146,9 @@ const updateExpense = async (req, res) => {
             { new: true }
         );
 
-        return res.status(200).json({ message: "Expense successfully updated", expense: updatedExpense });
+        const newExpense = await Expense.findById(updatedExpense._id).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
 
+        return res.status(200).json(newExpense);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Error editing expense" });
@@ -156,7 +163,9 @@ const getExpensesByGroupId = async (req, res) => {
             return res.status(400).json({ error: "Invalid group ID" });
         }
 
-        const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate("group", "name description").populate("paidBy", "name");
+        const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
+
+        if (!expenses) { return res.status(404).json({ error: "Expenses not found for this group" }) }
 
         res.status(200).json(expenses);
     } catch (error) {
@@ -172,7 +181,10 @@ const getExpensesByUserId = async (req, res) => {
         if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ error: "Invalid user ID" });
         }
+
         const expenses = await Expense.find({ "participants.user": userId }).populate("participants.user", "name").populate("group", "name description").populate("paidBy", "name");
+
+        if (!expenses) { return res.status(404).json({ error: "Expenses not found for this user" }) }
 
         res.status(200).json(expenses);
     } catch (error) {

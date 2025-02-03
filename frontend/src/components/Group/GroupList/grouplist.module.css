@@ -1,0 +1,10 @@
+.groups {
+    width: min(70%, 80rem);
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+}

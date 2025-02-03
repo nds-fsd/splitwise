@@ -4,18 +4,10 @@ const groupController = require("../controllers/group.controller");
 const router = express.Router();
 
 router.post("/", groupController.createGroup);
-router.get("/", groupController.getGroups);
-router.put(
-  "/:id",
-  groupController.validateGroupExists,
-  groupController.updateGroup
-);
-router.delete(
-  "/:id",
-  groupController.validateGroupExists,
-  groupController.deleteGroup
-);
-
+router.get("/:groupId", groupController.getGroupById);
 router.get("/user/:userId", groupController.getUserGroups);
+router.put("/:groupId", groupController.updateGroup);
+router.delete("/:groupId", groupController.deleteGroup);
+
 
 module.exports = router;

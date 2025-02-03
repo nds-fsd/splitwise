@@ -1,13 +1,10 @@
-import ExpenseForm from '../ExpenseForm/ExpenseForm';
 import styles from './modal.module.css';
 
-const Modal = ({ onClose, onSubmit, title, defaultValues }) => {
+const Modal = ({ children }) => {
     return (
         <div className={styles.modal}>
             <div className={styles.content}>
-                <h2 className={styles.title}>{title}</h2>
-                {/* ExpenseForm  */}
-                <Form onSubmit={onSubmit} onClose={onClose} defaultValues={defaultValues} />
+                {children}
             </div>
         </div>
     );

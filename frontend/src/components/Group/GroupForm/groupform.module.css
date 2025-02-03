@@ -1,0 +1,106 @@
+.form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.formFields {
+    margin: 15px 0;
+}
+
+.formField {
+    margin-bottom: 15px;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 3px;
+}
+
+.errorInput {
+    border-color: red;
+}
+
+.errorText {
+    color: red;
+    font-size: 0.875rem;
+
+}
+
+.createdBy {
+    margin: 5px 0;
+}
+
+.emailField {
+    margin: 10px 0;
+}
+
+.members {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.member {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.redBtn {
+    color: #c00;
+}
+
+.addBtn {
+    all: unset;
+    cursor: pointer;
+    margin-top: 5px;
+    color: #3c8ccd;
+}
+
+.addBtn:hover {
+    color: #1e90ff;
+}
+
+.submitButton {
+    background-color: #3c8ccd;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.submitButton:hover {
+    background-color: #1e90ff;
+}

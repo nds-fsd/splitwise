@@ -5,7 +5,7 @@ const GroupSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true, 
+      required: true,
       trim: true,
     },
     description: {
@@ -13,15 +13,14 @@ const GroupSchema = new mongoose.Schema(
       trim: true,
     },
 
-    members: [{ 
-      
-      type: mongoose.Schema.Types.ObjectId, ref: 'User' 
-    
-    }],
+    members: [
+      {
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      }],
 
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
@@ -29,4 +28,4 @@ const GroupSchema = new mongoose.Schema(
 const Group = mongoose.model('Group', GroupSchema);
 
 
-module.exports = { Group, GroupSchema };
+module.exports = Group;

@@ -1,0 +1,10 @@
+.app {
+    /* background-color: #222222; */
+    min-height: 100dvh;
+}
+
+.main {
+    width: min(90%, 120rem);
+    margin: 0 auto;
+    padding: 20px 0;
+}

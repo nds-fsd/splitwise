@@ -1,10 +1,10 @@
 import {useQuery} from "react-query";
-import api from "../../utils/axios";
+import api from "../../../utils/axios";
 
 const userList = () => {
 
     const getUsers = () => {
-        return api.get('/users')
+        return api.get('/user')
         .then(res => {
             return res.data
         })

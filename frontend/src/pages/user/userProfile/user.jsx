@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom'; // Importamos useParams
 import { useQuery } from 'react-query'; // Importamos useQuery desde React Query
-import api from '../../utils/axios'; // Ajusta la ruta según tu proyecto
-
+import api from '../../../utils/axios'; // Ajusta la ruta según tu proyecto
+import { getUserToken } from '../../../utils/localStorage';
 const User = () => {
+    const isLogged = !!getUserToken();
     const { id } = useParams(); // Extraemos el ID del usuario desde la URL
     const getUserById = (id) => api.get(`/users/${id}`).then((res) => res.data);
 
@@ -13,7 +14,9 @@ const { data: user, isLoading, isError, error } = useQuery(
     { enabled: !!id }
 );
 
-
+    if (!isLogged) {
+        return <div>No tienes acceso a esta página. Por favor, inicia sesión.</div>;
+    }
     // Manejo de estados automáticos
     if (isLoading) return <div>Cargando...</div>;
     if (isError) return <div>Error: {error.message || 'No se pudo cargar el usuario'}</div>;

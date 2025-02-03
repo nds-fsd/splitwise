@@ -1,28 +1,32 @@
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import  api  from '../../../utils/axios';
+import  api  from '../../utils/axios';
+import {setStorageObject} from '../../utils/localStorage';
 
-const RegisterForm = ({user}) => {
+const RegisterForm = () => {
     const queryClient = useQueryClient();
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     
     const createUser = (data) => {
-    return api.post('/users/create', data);
+    return api.post('/auth/register', data);
   };
 
   const mutation = useMutation(createUser, {
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const userData = response.data; // ✅ Asegurarte de acceder a los datos correctamente
+      setStorageObject(userData);
       queryClient.invalidateQueries('users');
     },
     onError: (error) => {
-        console.log(error);
+      console.log(error);
     }
-});
-
+  });
+  
 
   const onSubmit = (data) => {
     console.log(data);
     mutation.mutate(data);
+    
   };
 
   const name = watch('name');

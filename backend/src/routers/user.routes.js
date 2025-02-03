@@ -10,6 +10,8 @@ router.post("/create", validateUser, userController.createUser);
 
 // Ruta para obtener todos los usuarios
 router.get("/", addDateMiddleware, userController.getAllUsers);
+// current user
+router.get("/me", addDateMiddleware, userController.getCurrentUser);
 //eliminar
 router.delete("/:id", addDateMiddleware, userController.deleteUser);
 //actualizar

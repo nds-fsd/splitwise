@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../icon/icon';
 import styles from './expense.module.css'
 import { deleteGroupExpense, updateGroupExpense } from '../../../utils/expenseApi';
-import Modal from '../../Modal/Modal';
-import ExpenseForm from '../ExpenseForm/ExpenseForm';
+import Modal from '../../Modal/modal';
+import ExpenseForm from '../expenseForm/expenseForm';
 import { toast } from 'react-toastify';
 
 const Expense = ({ expense, setGroupExpenses }) => {

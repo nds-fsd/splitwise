@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './grouplist.module.css';
 import { getGroupByUserId } from '../../../utils/groupApi';
-import Group from '../Group/Group';
+import Group from '../group/group';
 
 const GroupList = ({ groups, setGroups }) => {
     useEffect(() => {

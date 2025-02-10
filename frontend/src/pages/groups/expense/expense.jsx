@@ -1,6 +1,6 @@
 
-import ExpenseList from '../../../components/Expense/ExpenseList/ExpenseList';
-import CreateExpense from '../../../components/Expense/CreateExpense/CreateExpense';
+import ExpenseList from '../../../components/expense/expenseList/expenseList';
+import CreateExpense from '../../../components/expense/createExpense/createExpense';
 import { useState } from 'react';
 
 const Expense = () => {

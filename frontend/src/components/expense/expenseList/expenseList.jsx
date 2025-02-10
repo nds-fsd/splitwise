@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './expenseList.module.css'
-import Expense from '../Expense/Expense';
+import Expense from '../expense/expense';
 import { getAllGroupExpensesById } from '../../../utils/expenseApi';
 import { useParams } from 'react-router-dom';
 

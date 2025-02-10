@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { createGroup } from "../../../utils/groupApi";
-import GroupForm from "../GroupForm/GroupForm";
-import Icon from "../../Icon/Icon";
-import Modal from "../../Modal/Modal";
+import GroupForm from "../groupForm/groupForm";
+import Icon from "../../icon/icon";
+import Modal from "../../Modal/modal";
 import { toast } from "react-toastify";
 
 

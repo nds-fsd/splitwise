@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Modal from "../../Modal/Modal";
-import Icon from "../../Icon/Icon"
+import Modal from "../../Modal/modal";
+import Icon from "../../icon/icon"
 import { createGroupExpense } from "../../../utils/expenseApi";
 import { getGroupById } from "../../../utils/groupApi";
 import { useParams } from "react-router-dom";
-import ExpenseForm from "../ExpenseForm/ExpenseForm";
+import ExpenseForm from "../expenseForm/expenseForm";
 import { toast } from "react-toastify";
 
 const CrateExpense = ({ setGroupExpenses }) => {

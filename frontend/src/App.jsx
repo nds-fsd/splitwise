@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/layout/layout";
 import Groups from "./pages/groups/groups";
 import GroupExpenses from "./pages/groups/expense/expense";
 import UserExpenses from "./pages/user/userExpenses/userExpenses";

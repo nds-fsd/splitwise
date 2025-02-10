@@ -1,6 +1,6 @@
 import { useState } from "react";
-import GroupList from "../../components/Group/GroupList/GroupList";
-import CreateGroup from "../../components/Group/CreateGroup/CreateGroup";
+import GroupList from "../../components/group/groupList/groupList";
+import CreateGroup from "../../components/group/createGroup/createGroup";
 
 const Groups = () => {
     const [groups, setGroups] = useState('')

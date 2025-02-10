@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3001/api', // Cambia esto por la URL base de tu backend
+    baseURL: process.env.VITE_API_URL, // Cambia esto por la URL base de tu backend
     headers: {
         'Content-Type': 'application/json',
     }

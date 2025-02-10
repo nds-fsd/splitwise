@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { getAllUserExpensesById, createGroupExpense } from "../../../utils/expensesApi";
+import { getAllUserExpensesById, createGroupExpense } from "../../../utils/expenseApi";
 import { useEffect, useState } from 'react';
 
 const UserExpenses = ({ user }) => {

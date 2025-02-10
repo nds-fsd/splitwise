@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Icon from '../../icon/icon';
 import styles from './expense.module.css'
 import { deleteGroupExpense, updateGroupExpense } from '../../../utils/expenseApi';
-import Modal from '../../Modal/modal';
+import Modal from '../../modal/modal';
 import ExpenseForm from '../expenseForm/expenseForm';
 import { toast } from 'react-toastify';
 

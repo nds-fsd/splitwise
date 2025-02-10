@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Modal from "../../Modal/modal";
+import Modal from "../../modal/modal";
 import Icon from "../../icon/icon"
 import { createGroupExpense } from "../../../utils/expenseApi";
 import { getGroupById } from "../../../utils/groupApi";

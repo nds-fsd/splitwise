@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import Header from '../header/header';
-import styles from './Layout.module.css';
+import styles from './layout.module.css';
 import { Slide, ToastContainer } from 'react-toastify';
 const Layout = () => {
     return (

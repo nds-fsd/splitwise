@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Icon from '../../icon/icon';
 import styles from './group.module.css'
-import Modal from '../../Modal/modal';
+import Modal from '../../modal/modal';
 import GroupForm from '../groupForm/groupForm';
 import { useNavigate } from 'react-router-dom';
 import { deleteGroup, updateGroup } from '../../../utils/groupApi';

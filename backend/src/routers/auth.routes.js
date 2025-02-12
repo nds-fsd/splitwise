@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../schemas/user.schema');
+const sendEmail = require('../services/sendgrid');
 
 const Router = express.Router();
 
@@ -27,6 +28,8 @@ Router.post('/register', async (req, res) => {
         const newUser = new User({ email, name, password, profilePicture });
         const createdUser = await newUser.save();
         console.log(newUser)
+
+        sendEmail(email, 'Welcome to DivvyUp', `Thank you ${name} for registering with DivvyUp!`);
 
         return res.status(200).json({
             token: await createdUser.generateJWT(),

@@ -1,3 +1,4 @@
+const Expense = require("../schemas/expense.schema");
 const Group = require("../schemas/group.schema");
 const User = require("../schemas/user.schema");
 const mongoose = require("mongoose");
@@ -145,10 +146,55 @@ const deleteGroup = async (req, res) => {
   }
 };
 
+
+const getBalance = async (req, res) => {
+  try {
+    const { groupId } = req.params;
+
+    if (!groupId || !mongoose.Types.ObjectId.isValid(groupId)) {
+      return res.status(400).json({ error: "Invalid group ID" });
+    }
+
+    const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
+
+    const calculateBalance = (expenses) => {
+      let balance = {};
+      expenses.forEach((expense) => {
+        const { paidBy, participants, totalAmount } = expense;
+        if (!balance[paidBy._id]) {
+          balance[paidBy._id] = { name: paidBy.name, amount: totalAmount };
+        } else {
+          balance[paidBy._id].amount += totalAmount;
+        }
+
+        participants.forEach((participant) => {
+          const { user, amountOwed } = participant;
+          if (!balance[user._id]) {
+            balance[user._id] = { name: user.name, amount: -amountOwed };
+          } else {
+            balance[user._id].amount -= amountOwed;
+          }
+        });
+      });
+
+      const arrayBalance = Object.values(balance);
+      return arrayBalance;
+    }
+
+    const balance = calculateBalance(expenses)
+
+    res.status(200).json(balance);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error getting balance" });
+  }
+}
+
 module.exports = {
   createGroup,
   getGroupById,
   updateGroup,
   deleteGroup,
   getUserGroups,
+  getBalance
 };

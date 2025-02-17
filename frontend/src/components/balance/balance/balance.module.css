@@ -1,0 +1,29 @@
+.card {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #27272a;
+    border-radius: 10px;
+    min-width: 70px;
+}
+
+.cardDark {
+    background-color: var(--bg-dark-mode);
+    color: var(--color-dark-mode);
+    border: 1px dashed var(--border-color-dark-mode);
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+}
+
+.dashed {
+    display: flex;
+    border-bottom: 1px dashed #27272a;
+    margin: 3px 0;
+}
+
+.amount {
+    display: flex;
+    justify-content: center;
+}

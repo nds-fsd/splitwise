@@ -17,3 +17,7 @@
     border-radius: 10px;
     width: 400px;
 }
+
+.contentDark {
+    background: var(--secondary-bg-dark-mode);
+}

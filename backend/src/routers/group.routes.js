@@ -8,6 +8,7 @@ router.get("/:groupId", groupController.getGroupById);
 router.get("/user/:userId", groupController.getUserGroups);
 router.put("/:groupId", groupController.updateGroup);
 router.delete("/:groupId", groupController.deleteGroup);
+router.get("/:groupId/balance", groupController.getBalance);
 
 
 module.exports = router;

@@ -25,3 +25,8 @@ export const deleteGroup = async (groupId) => {
     return response.data;
 };
 
+export const getGroupBalance = async (groupId) => {
+    const response = await api.get(`/group/${groupId}/balance`);
+    return response.data;
+}
+

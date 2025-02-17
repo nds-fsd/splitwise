@@ -12,6 +12,10 @@ body {
     margin: 0 auto;
 }
 
+.headerDark {
+    color: var(--color-dark-mode);
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -39,16 +43,15 @@ body {
 
 .navItem:hover {
     background-color: #1e90ff;
-
+    color: white;
 }
 
-.profile {
-    width: 50px;
-    height: 50px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
+.navItemDark {
+    color: var(--color-dark-mode);
+}
+
+.right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    gap: 10px;
 }

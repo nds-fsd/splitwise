@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import styles from "./groupform.module.css";
 import { IoCloseOutline } from "react-icons/io5";
+import { useDarkMode } from "../../../context/darkModeContext";
 
 const GroupForm = ({ onClose, onSubmit, title, defaultValues = {}, groupMembers, createdBy = '' }) => {
+    const { darkMode } = useDarkMode();
     const minMembers = title === 'Create group' ? 1 : 2;
     const {
         register,
@@ -30,7 +32,7 @@ const GroupForm = ({ onClose, onSubmit, title, defaultValues = {}, groupMembers,
     };
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)} className={styles.form}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className={`${styles.form} ${darkMode ? styles.formDark : ''}`}>
             <div className={styles.top}>
                 <h2>{title}</h2>
                 <IoCloseOutline className={styles.btn} onClick={onClose} />
@@ -48,7 +50,7 @@ const GroupForm = ({ onClose, onSubmit, title, defaultValues = {}, groupMembers,
                             required: "Name is required",
                             maxLength: { value: 30, message: 'name is to large' },
                         })}
-                        className={`${styles.input} ${errors.name ? styles.errorInput : ""}`}
+                        className={`${styles.input} ${errors.name ? styles.errorInput : ""} ${darkMode ? styles.inputDark : ''}`}
                     />
                     {errors.name && (
                         <span className={styles.errorText}>{errors.name.message}</span>
@@ -65,7 +67,7 @@ const GroupForm = ({ onClose, onSubmit, title, defaultValues = {}, groupMembers,
                             required: "Description is required",
                             maxLength: { value: 50, message: 'description is to large' },
                         })}
-                        className={`${styles.input} ${errors.description ? styles.errorInput : ""}`}
+                        className={`${styles.input} ${errors.description ? styles.errorInput : ""} ${darkMode ? styles.inputDark : ''}`}
                     />
                     {errors.description && (
                         <span className={styles.errorText}>{errors.description.message}</span>
@@ -91,7 +93,7 @@ const GroupForm = ({ onClose, onSubmit, title, defaultValues = {}, groupMembers,
                                             message: "Invalid email address",
                                         },
                                     })}
-                                    className={`${styles.input} ${errors.members?.[index]?.email ? styles.errorInput : ""}`}
+                                    className={`${styles.input} ${errors.members?.[index]?.email ? styles.errorInput : ""} ${darkMode ? styles.inputDark : ''}`}
                                 />
                                 <div>
                                     {fields.length > minMembers && (

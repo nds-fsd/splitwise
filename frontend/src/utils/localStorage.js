@@ -1,13 +1,13 @@
 export  const getStorageObject = (key) => {
     const item = localStorage.getItem(key);
-    if (item ==! null) {
+    if (item !== null) {
         return JSON.parse(item);
     }
     return null;
 };
 
-export const setStorageObject = (token) => {
-    localStorage.setItem('user-session', token);
+export const setStorageObject = (data) => {
+    localStorage.setItem('user-session', data);
 };
 
 export const deleteStorageObject = (key) => {
@@ -16,13 +16,14 @@ export const deleteStorageObject = (key) => {
 
 export const getUserToken = () => {
     const session = getStorageObject('user-session')
+    console.log("session:", session)
     if (session) {
         return session.token
     }
     return null;
 };
 
-export const setUserSession = () => {
+export const getUserSession = () => {
     const session = getStorageObject('user-session')
     if (session) {
         return session.user

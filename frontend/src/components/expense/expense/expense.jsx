@@ -5,10 +5,14 @@ import { deleteGroupExpense, updateGroupExpense } from '../../../utils/expenseAp
 import Modal from '../../modal/modal';
 import ExpenseForm from '../expenseForm/expenseForm';
 import { toast } from 'react-toastify';
+import ExpenseActions from '../expenseActions/expenseActions';
+import { useDarkMode } from '../../../context/darkModeContext';
 
 const Expense = ({ expense, setGroupExpenses }) => {
     const [expandedExpenseId, setExpandedExpenseId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
+
+    const { darkMode } = useDarkMode();
 
     const groupMembers = expense.group.members.map((member) => member.user);
 
@@ -43,7 +47,7 @@ const Expense = ({ expense, setGroupExpenses }) => {
     };
 
     return (
-        <div className={styles.expense}>
+        <div className={`${styles.expense} ${darkMode ? styles.expenseDark : ''}`}>
             <li className={styles.listItem} onClick={() => toggleParticipants(expense._id)} title='click to see the details'>
                 <div className={styles.row} >
                     <div className={styles.left} >
@@ -52,10 +56,8 @@ const Expense = ({ expense, setGroupExpenses }) => {
                     </div>
                     <div className={styles.right}>
                         <p><strong>{expense.totalAmount}€</strong></p>
-                        <div className={styles.buttons}>
-                            <Icon variant='edit' handleClick={() => setIsEditing(true)} />
-                            <Icon variant='delete' handleClick={onDelete} />
-                            {isEditing && <Modal><ExpenseForm title='Edit Expense' onClose={() => setIsEditing(false)} onSubmit={handleEditExpense} groupMembers={groupMembers} defaultValues={expense} /></Modal>}
+                        <div className={styles.actions}>
+                            <ExpenseActions groupMembers={groupMembers} handleEditExpense={handleEditExpense} onDelete={onDelete} isEditing={isEditing} setIsEditing={setIsEditing} defaultValues={expense} />
                         </div>
                     </div>
                 </div>

@@ -3,12 +3,18 @@
     background-color: rgb(240, 240, 240);
     /* background-color: rgb(36, 36, 36); */
     border-radius: 10px;
-    margin-bottom: 10px;
     border: 1px solid #27272a;
+    width: 100%;
     /* height: 60px;
     overflow: hidden;
     transition: height .3s;
     interpolate-size: allow-keywords; */
+}
+
+.groupDark {
+    background-color: var(--bg-dark-mode);
+    color: var(--color-dark-mode);
+    border: 1px dashed var(--border-color-dark-mode);
 }
 
 /* .group:hover {
@@ -22,7 +28,6 @@
 .listItem {
     list-style: none;
     /* color: white; */
-    cursor: pointer;
 }
 
 .row {

@@ -11,6 +11,12 @@
     interpolate-size: allow-keywords; */
 }
 
+.expenseDark {
+    background-color: var(--bg-dark-mode);
+    color: var(--color-dark-mode);
+    border: 1px dashed var(--border-color-dark-mode);
+}
+
 /* .expense:hover {
     height: auto;
 } */

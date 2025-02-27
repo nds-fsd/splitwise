@@ -4,6 +4,7 @@ import { deleteGroup, updateGroup } from '../../../utils/groupApi';
 import { toast } from 'react-toastify';
 import GroupActions from '../groupActions/groupActions';
 import { useDarkMode } from '../../../context/darkModeContext';
+import { useAuth } from '../../../context/userContextAuth';
 
 const Group = ({ group, setGroups }) => {
     const [expandedGroupId, setExpandedGroupId] = useState(null);
@@ -13,13 +14,14 @@ const Group = ({ group, setGroups }) => {
         setExpandedGroupId(expandedGroupId === groupId ? null : groupId);
     };
     const { darkMode } = useDarkMode();
+    const { token } = useAuth();
 
     const groupMembers = group?.members?.map((p) => p.user)
 
 
     const handleEditGroup = async (data) => {
         try {
-            const response = await updateGroup(group._id, data);
+            const response = await updateGroup(group._id, data, token);
             setGroups((prevGroups) => prevGroups.map((g) => (g._id === group._id ? response : g)));
             setIsEditing(false);
             toast.success('Group successfully edited');
@@ -35,7 +37,7 @@ const Group = ({ group, setGroups }) => {
         }
 
         try {
-            await deleteGroup(group._id);
+            await deleteGroup(group._id, token);
             setGroups((prevGroups) => prevGroups.filter((g) => g._id !== group._id));
             toast.success('Group succesfully deleted')
         } catch (error) {

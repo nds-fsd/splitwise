@@ -3,6 +3,7 @@ import styles from './expenseList.module.css'
 import Expense from '../expense/expense';
 import { getAllGroupExpensesById } from '../../../utils/expenseApi';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../../context/userContextAuth';
 
 const ExpenseList = ({ groupExpenses, setGroupExpenses }) => {
     // const navigate = useNavigate()
@@ -12,10 +13,11 @@ const ExpenseList = ({ groupExpenses, setGroupExpenses }) => {
     }, []);
 
     const { groupId } = useParams();
+    const { token } = useAuth();
 
     const getGroupExpenses = async () => {
         try {
-            const data = await getAllGroupExpensesById(groupId);
+            const data = await getAllGroupExpensesById(groupId, token);
             setGroupExpenses(data);
         } catch (error) {
             // useNavigate('/groups')

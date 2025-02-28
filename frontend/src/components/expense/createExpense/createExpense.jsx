@@ -33,7 +33,7 @@ const CrateExpense = ({ setGroupExpenses }) => {
 
     const handleCreateExpense = async (data) => {
         try {
-            const newExpense = await createGroupExpense(groupId, data);
+            const newExpense = await createGroupExpense(groupId, data, token);
             setGroupExpenses((prevExpenses) => [...prevExpenses, newExpense])
             closeModal();
             toast.success("Expense successfully created");

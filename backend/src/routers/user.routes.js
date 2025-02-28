@@ -2,6 +2,7 @@ const express = require("express");
 const { addDateMiddleware, validateUser } = require("../middlewares/index");
 const expensesController = require("../controllers/expense.controller");
 
+const { jwtMiddleware } = require("../security/jwt");
 const userController = require("../controllers/user.controller");
 
 const router = express.Router();
@@ -16,8 +17,8 @@ router.get("/me", addDateMiddleware, userController.getCurrentUser);
 router.delete("/:id", addDateMiddleware, userController.deleteUser);
 //actualizar
 router.patch("/:id", addDateMiddleware, userController.updateUser);
+router.get("/expenses", jwtMiddleware, expensesController.getExpensesByUserId);
 router.get("/:id", userController.getUserById);
 
-router.get("/:id/expenses", expensesController.getExpensesByUserId);
 
 module.exports = router;

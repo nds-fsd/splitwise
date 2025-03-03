@@ -242,11 +242,6 @@ const deleteExpense = async (req, res) => {
             return res.status(403).json({ error: "You must be a member of this group to delete expenses" });
         }
 
-        const isPayer = expense.paidBy._id.toString() === userId;
-        if (!isPayer) {
-            return res.status(403).json({ error: "Only the person who paid for this expense can delete it" })
-        }
-
         await Expense.findByIdAndDelete(expenseId);
         res.status(200).json({ message: "Expense successfully deleted" });
     } catch (error) {

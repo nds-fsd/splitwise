@@ -7,12 +7,14 @@ import ExpenseForm from '../expenseForm/expenseForm';
 import { toast } from 'react-toastify';
 import ExpenseActions from '../expenseActions/expenseActions';
 import { useDarkMode } from '../../../context/darkModeContext';
+import { useAuth } from '../../../context/userContextAuth';
 
 const Expense = ({ expense, setGroupExpenses }) => {
     const [expandedExpenseId, setExpandedExpenseId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
     const { darkMode } = useDarkMode();
+    const { token } = useAuth();
 
     const groupMembers = expense.group.members.map((member) => member.user);
 
@@ -22,7 +24,7 @@ const Expense = ({ expense, setGroupExpenses }) => {
 
     const handleEditExpense = async (data) => {
         try {
-            const response = await updateGroupExpense(expense.group._id, expense._id, data);
+            const response = await updateGroupExpense(expense.group._id, expense._id, data, token);
             setGroupExpenses((groupExpense) => groupExpense.map((e) => (e._id === expense._id ? response : e)));
             setIsEditing(false);
             toast.success('Expense succesfully edited');
@@ -38,7 +40,7 @@ const Expense = ({ expense, setGroupExpenses }) => {
         }
 
         try {
-            await deleteGroupExpense(expense.group._id, expense._id);
+            await deleteGroupExpense(expense.group._id, expense._id, token);
             setGroupExpenses((groupExpense) => groupExpense.filter((e) => e._id !== expense._id));
             toast.success('Expense succesfully deleted');
         } catch (error) {

@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 import styles from './grouplist.module.css';
 import { getGroupByUserId } from '../../../utils/groupApi';
 import Group from '../group/group';
+import { useAuth } from '../../../context/userContextAuth';
 
 const GroupList = ({ groups, setGroups }) => {
     useEffect(() => {
         getGroups();
     }, []);
 
-    // TODO User Id from JWT
-    const userId = "678533a75e808b89549e316a"
+    const { token } = useAuth();
 
     const getGroups = async () => {
         try {
-            const data = await getGroupByUserId(userId);
+            const data = await getGroupByUserId(token);
             setGroups(data);
         } catch (error) {
             console.log(error.response.data.error)

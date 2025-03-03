@@ -1,26 +1,27 @@
+import { authHeaders } from "./authHeaders";
 import api from "./axios";
 
-export const getAllUserExpensesById = async (userId) => {
-  const response = await api.get(`/user/${userId}/expenses`);
+export const getAllUserExpensesById = async (token) => {
+  const response = await api.get(`/user/expenses`, authHeaders(token));
   return response.data;
 };
 
-export const getAllGroupExpensesById = async (groupId) => {
-  const response = await api.get(`/group/${groupId}/expenses`);
+export const getAllGroupExpensesById = async (groupId, token) => {
+  const response = await api.get(`/group/${groupId}/expenses`, authHeaders(token));
   return response.data;
 };
 
-export const createGroupExpense = async (groupId, data) => {
-  const response = await api.post(`/group/${groupId}/expenses`, data);
+export const createGroupExpense = async (groupId, data, token) => {
+  const response = await api.post(`/group/${groupId}/expenses`, data, authHeaders(token));
   return response.data;
 };
 
-export const updateGroupExpense = async (groupId, expenseId, data) => {
-  const response = await api.patch(`/group/${groupId}/expenses/${expenseId}`, data);
+export const updateGroupExpense = async (groupId, expenseId, data, token) => {
+  const response = await api.patch(`/group/${groupId}/expenses/${expenseId}`, data, authHeaders(token));
   return response.data;
 };
 
-export const deleteGroupExpense = async (groupId, expenseId) => {
-  const response = await api.delete(`/group/${groupId}/expenses/${expenseId}`);
+export const deleteGroupExpense = async (groupId, expenseId, token) => {
+  const response = await api.delete(`/group/${groupId}/expenses/${expenseId}`, authHeaders(token));
   return response.data;
 };

@@ -63,3 +63,8 @@ body {
     align-items: center;
     gap: 10px;
 }
+
+.avatarLink {
+    text-decoration: none;  /* Eliminar subrayado del link */
+    cursor: pointer;       /* Cambiar el cursor al hacer hover sobre el link */
+}

@@ -37,6 +37,7 @@ Router.post('/register', async (req, res) => {
                 email: createdUser.email,
                 name: createdUser.name,
                 id: createdUser._id,
+                profilePicture: createdUser.profilePicture,
             },
         });
     } catch (error) {
@@ -70,7 +71,7 @@ Router.post('/login', async (req, res) => {
                 email: foundUser.email,
                 name: foundUser.name,
                 id: foundUser._id,
-                role: foundUser.role,
+                profilePicture: foundUser.profilePicture,
             },
         });
     } catch (error) {

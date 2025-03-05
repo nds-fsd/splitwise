@@ -9,7 +9,7 @@ router.get("/user", jwtMiddleware, groupController.getUserGroups);
 router.put("/:groupId", jwtMiddleware, groupController.updateGroup);
 router.delete("/:groupId", jwtMiddleware, groupController.deleteGroup);
 router.get("/:groupId", jwtMiddleware, groupController.getGroupById);
-router.get("/:groupId/balance", groupController.getBalance);
+router.get("/:groupId/groupDetails", jwtMiddleware, groupController.getGroupDetails);
 
 
 module.exports = router;

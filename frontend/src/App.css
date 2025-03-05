@@ -5,6 +5,7 @@
 }
 
 :root {
+    --border-color: #b3b3b5;
     --bg-dark-mode: #09090b;
     --secondary-bg-dark-mode: #333333;
     --color-dark-mode: #FAFAFA;

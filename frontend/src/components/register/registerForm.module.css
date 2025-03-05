@@ -1,76 +1,71 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 24px;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1976d2; /* Azul de Material UI */
-  }
-  
-  .label {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    font-weight: 500;
-    color: #424242; /* Gris oscuro */
-  }
-  
-  .input {
-    padding: 10px;
-    border: 1px solid #bdbdbd;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .input:focus {
-    border-color: #1976d2;
-    box-shadow: 0px 0px 5px rgba(25, 118, 210, 0.5);
-  }
-  
-  .errorMessage {
-    font-size: 12px;
-    color: #d32f2f; /* Rojo de error */
-    margin-top: 4px;
-  }
-  
-  .submitButton {
-    background-color: #1976d2;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .submitButton:hover {
-    background-color: #1565c0;
-  }
-  
-  .checkboxContainer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .previewImage {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #1976d2;
-  }
-  
+.registerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.registerTitle {
+  font-size: 29px;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.registerLabel {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+  color: #424242;
+}
+
+.registerInput {
+  padding: 10px;
+  border: 1px solid #bdbdbd;
+  width: 300px;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.registerInput:focus {
+  border-color: #1976d2;
+  box-shadow: 0px 0px 5px rgba(25, 118, 210, 0.5);
+}
+
+.registerErrorMessage {
+  font-size: 12px;
+  color: #d32f2f;
+  margin-top: 4px;
+}
+
+.registerSubmitButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.registerSubmitButton:hover {
+  background-color: #1565c0;
+}
+
+
+.registerPreviewImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #1976d2;
+} 

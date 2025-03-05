@@ -27,8 +27,8 @@ export const deleteGroup = async (groupId, token) => {
     return response.data;
 };
 
-export const getGroupBalance = async (groupId) => {
-    const response = await api.get(`/group/${groupId}/balance`);
+export const getGroupDetails = async (groupId, token) => {
+    const response = await api.get(`/group/${groupId}/groupDetails`, authHeaders(token));
     return response.data;
 }
 

@@ -1,5 +1,6 @@
 const Expense = require("../schemas/expense.schema");
 const Group = require("../schemas/group.schema");
+const Payment = require("../schemas/payment.schema");
 const User = require("../schemas/user.schema");
 const mongoose = require("mongoose");
 
@@ -44,6 +45,7 @@ const createGroup = async (req, res) => {
     })
 
     const newGroup = await Group.findById(group._id).populate("members.user", "name email")
+    await newGroup.updateBalance();
     res.status(201).json(newGroup);
   } catch (error) {
     console.error(error);
@@ -111,6 +113,8 @@ const updateGroup = async (req, res) => {
     if (!newGroup) {
       return res.status(404).json({ error: "Group not found" });
     }
+
+    await newGroup.updateBalance();
 
     res.status(200).json(newGroup);
   } catch (error) {
@@ -190,46 +194,37 @@ const deleteGroup = async (req, res) => {
 };
 
 
-const getBalance = async (req, res) => {
+const getGroupDetails = async (req, res) => {
   try {
+    const { id: userId } = req.jwtPayload;
     const { groupId } = req.params;
 
     if (!groupId || !mongoose.Types.ObjectId.isValid(groupId)) {
       return res.status(400).json({ error: "Invalid group ID" });
     }
 
-    const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
+    const group = await Group.findById(groupId).populate('members.user').populate('balance.user');
 
-    const calculateBalance = (expenses) => {
-      let balance = {};
-      expenses.forEach((expense) => {
-        const { paidBy, participants, totalAmount } = expense;
-        if (!balance[paidBy._id]) {
-          balance[paidBy._id] = { name: paidBy.name, amount: totalAmount };
-        } else {
-          balance[paidBy._id].amount += totalAmount;
-        }
-
-        participants.forEach((participant) => {
-          const { user, amountOwed } = participant;
-          if (!balance[user._id]) {
-            balance[user._id] = { name: user.name, amount: -amountOwed };
-          } else {
-            balance[user._id].amount -= amountOwed;
-          }
-        });
-      });
-
-      const arrayBalance = Object.values(balance);
-      return arrayBalance;
+    if (!group) {
+      return res.status(404).json({ error: "Group not found" });
     }
 
-    const balance = calculateBalance(expenses)
+    const isMember = group.members.some((m) => m.user._id.toString() === userId);
+    if (!isMember) {
+      return res.status(403).json({ error: "You don't have permission to view expenses from this group" });
+    }
 
-    res.status(200).json(balance);
+    const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
+
+    const debts = await Payment.find({
+      group: groupId,
+      status: 'pending'
+    }).populate("from", "name").populate("to", "name");
+
+    res.status(200).json({ expenses, balance: group.balance, debts });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error getting balance" });
+    console.log(error)
+    res.status(500).json({ error: "Error getting group details" });
   }
 }
 
@@ -239,5 +234,5 @@ module.exports = {
   updateGroup,
   deleteGroup,
   getUserGroups,
-  getBalance
+  getGroupDetails
 };

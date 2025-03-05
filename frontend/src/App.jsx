@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/layout/layout";
 import Groups from "./pages/groups/groups";
-import GroupExpenses from "./pages/groups/expense/expense";
+import GroupDetails from "./pages/groups/groupDetails/groupDetails";
 import UserExpenses from "./pages/user/userExpenses/userExpenses";
 import NoMatch from "./pages/noMatch/noMatch";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -42,7 +42,7 @@ function App() {
               />
                 <Route path="/register" element={<RegisterForm />} />
                 <Route path="/users" element={<Userlist />} />
-                  <Route path="/groups/:groupId/expenses" element={token ? <GroupExpenses /> : <Navigate to="/login" />} /> {/* Ruta protegida de gastos de grupo */}
+                  <Route path="/groups/:groupId/expenses" element={token ? <GroupDetails /> : <Navigate to="/login" />} /> {/* Ruta protegida de gastos de grupo */}
                 <Route path="*" element={<NoMatch />} />
               </Route>
             </Routes>

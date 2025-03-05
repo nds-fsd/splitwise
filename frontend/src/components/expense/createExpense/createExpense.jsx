@@ -8,7 +8,7 @@ import ExpenseForm from "../expenseForm/expenseForm";
 import { toast } from "react-toastify";
 import { useAuth } from "../../../context/userContextAuth";
 
-const CrateExpense = ({ setGroupExpenses }) => {
+const CrateExpense = ({ refreshGroupDetails }) => {
     const [groupInfo, setGroupInfo] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -34,7 +34,7 @@ const CrateExpense = ({ setGroupExpenses }) => {
     const handleCreateExpense = async (data) => {
         try {
             const newExpense = await createGroupExpense(groupId, data, token);
-            setGroupExpenses((prevExpenses) => [...prevExpenses, newExpense])
+            refreshGroupDetails();
             closeModal();
             toast.success("Expense successfully created");
         } catch (error) {

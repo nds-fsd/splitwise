@@ -1,71 +1,90 @@
 .registerContainer {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 24px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  max-width: 600px;
-  margin: auto;
+  gap: 10px;
 }
 
 .registerTitle {
-  font-size: 29px;
+  text-align: center;
+  color: #007bff;
   font-weight: bold;
-  color: #1976d2;
+  font-size: 30px;
 }
 
 .registerLabel {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  font-weight: 500;
-  color: #424242;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .registerInput {
-  padding: 10px;
-  border: 1px solid #bdbdbd;
-  width: 300px;
+  width: 100%;
+  padding: 14px; /* Aumentado para más espacio interno */
+  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
   transition: all 0.2s ease-in-out;
 }
 
 .registerInput:focus {
-  border-color: #1976d2;
-  box-shadow: 0px 0px 5px rgba(25, 118, 210, 0.5);
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .registerErrorMessage {
-  font-size: 12px;
-  color: #d32f2f;
-  margin-top: 4px;
+  color: red;
+  font-size: 14px;
 }
 
 .registerSubmitButton {
-  background-color: #1976d2;
+  background-color: #007bff;
   color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
   font-size: 16px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.3s;
 }
 
 .registerSubmitButton:hover {
-  background-color: #1565c0;
+  background-color: #0056b3;
 }
-
 
 .registerPreviewImage {
   width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #1976d2;
-} 
+  border: 2px solid #007bff;
+}
+.registerInputFile {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  background-color: #f9f9f9;
+  display: block;
+  transition: all 0.2s ease-in-out;
+  -webkit-appearance: none; /* Oculta el texto de selección del archivo en WebKit */
+  appearance: none; /* Oculta el texto de selección en otros navegadores */
+}
+
+.registerInputFile::file-selector-button {
+  display: none; /* Oculta el texto y el botón predeterminado */
+}
+
+.registerInputFile:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

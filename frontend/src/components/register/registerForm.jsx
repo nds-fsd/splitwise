@@ -43,9 +43,7 @@ const RegisterForm = () => {
         mutation.mutate(data);
     };
 
-    const name = watch('name');
-    const email = watch('email');
-    const password = watch('password');
+    
     const profilePicture = watch('profilePicture');
 
     return (
@@ -96,7 +94,7 @@ const RegisterForm = () => {
             <label className={styles.registerLabel}>
                 Foto de perfil:
                 <input
-                    className={styles.registerInput}
+                    className={styles.registerInputFile}
                     type="file"
                     {...register('profilePicture', {
                         required: 'La foto de perfil es obligatoria',
@@ -111,12 +109,9 @@ const RegisterForm = () => {
             {mutation.isSuccess && <p>Usuario creado correctamente!</p>}
             {mutation.isError && <p>Hubo un error al crear el usuario. Intenta nuevamente.</p>}
 
-            <h3>Vista previa:</h3>
-            <p>Nombre: {name}</p>
-            <p>Correo: {email}</p>
-            <p>Contraseña: {password}</p>
+            <h3>Preview:</h3>
             <p>
-                Foto de perfil:{' '}
+                Profile Picture:{' '}
                 {profilePicture?.[0] ? (
                     <img className={styles.registerPreviewImage} src={URL.createObjectURL(profilePicture[0])} alt="Vista previa" />
                 ) : (

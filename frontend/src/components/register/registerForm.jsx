@@ -10,8 +10,20 @@ const RegisterForm = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const createUser = (data) => {
-        return api.post('/auth/register', data);
+        // Creamos un objeto FormData para enviar los datos como archivo y texto
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('profilePicture', data.profilePicture[0]);  // El archivo es un array, tomamos el primer elemento
+
+        return api.post('/auth/register', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Importante para el envío de archivos
+            },
+        });
     };
+
     const { login } = useAuth();
     const navigate = useNavigate();
     const mutation = useMutation(createUser, {
@@ -82,20 +94,17 @@ const RegisterForm = () => {
             </label>
 
             <label className={styles.registerLabel}>
-                URL de la foto de perfil:
+                Foto de perfil:
                 <input
                     className={styles.registerInput}
-                    type="text"
-                    placeholder="https://ejemplo.com/imagen.jpg"
+                    type="file"
                     {...register('profilePicture', {
                         required: 'La foto de perfil es obligatoria',
-                        pattern: { value: /^(http|https):\/\/[^ "]+$/, message: 'Debe ser una URL válida' },
+                        validate: (value) => value.length > 0 || 'Debe seleccionar una imagen',
                     })}
                 />
                 {errors.profilePicture && <p className={styles.registerErrorMessage}>{errors.profilePicture.message}</p>}
             </label>
-
-          
 
             <button type="submit" className={styles.registerSubmitButton}>Registrarse</button>
 
@@ -108,10 +117,10 @@ const RegisterForm = () => {
             <p>Contraseña: {password}</p>
             <p>
                 Foto de perfil:{' '}
-                {profilePicture ? (
-                    <img className={styles.registerPreviewImage} src={profilePicture} alt="Vista previa" />
+                {profilePicture?.[0] ? (
+                    <img className={styles.registerPreviewImage} src={URL.createObjectURL(profilePicture[0])} alt="Vista previa" />
                 ) : (
-                    'No se ha proporcionado una URL'
+                    'No se ha proporcionado una foto'
                 )}
             </p>
         </form>
@@ -119,3 +128,4 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+

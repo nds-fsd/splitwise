@@ -2,15 +2,18 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../schemas/user.schema');
 const sendEmail = require('../services/sendgrid');
+const upload = require('../config/multer.config'); // Middleware de multer
+const uploadToCloudinary = require('../config/cluodinary.config'); // Función para subir a Cloudinary
 
 const Router = express.Router();
 
 // REGISTER
-Router.post('/register', async (req, res) => {
+Router.post('/register', upload.single('profilePicture'), async (req, res) => {
     try {
-        const { email, name, password, profilePicture } = req.body;
+        const { email, name, password } = req.body;
+        let profilePicture = '';
 
-        console.log(email, name, password, profilePicture);
+        console.log(email, name, password, req.file);
 
         if (!email) {
             return res.status(400).json({ error: { register: 'Email not received' } });
@@ -25,10 +28,17 @@ Router.post('/register', async (req, res) => {
             return res.status(400).json({ error: { email: 'Email already registered' } });
         }
 
+        // Si hay un archivo de imagen, lo subimos a Cloudinary
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer); // Usamos el buffer de la imagen
+            console.log('Imagen result:', result);
+            profilePicture = result; // Guarda la URL segura de Cloudinary
+        }
+
         const newUser = new User({ email, name, password, profilePicture });
         const createdUser = await newUser.save();
-        console.log(newUser)
 
+        // Enviar correo de bienvenida
         sendEmail(email, 'Welcome to DivvyUp', `Thank you ${name} for registering with DivvyUp!`);
 
         return res.status(200).json({
@@ -37,6 +47,7 @@ Router.post('/register', async (req, res) => {
                 email: createdUser.email,
                 name: createdUser.name,
                 id: createdUser._id,
+                profilePicture: createdUser.profilePicture,
             },
         });
     } catch (error) {
@@ -60,6 +71,7 @@ Router.post('/login', async (req, res) => {
             return res.status(400).json({ error: { email: 'User not found, please Register' } });
         }
 
+        // Compara la contraseña
         if (!foundUser.comparePassword(password)) {
             return res.status(400).json({ error: { password: 'Invalid Password' } });
         }
@@ -70,7 +82,7 @@ Router.post('/login', async (req, res) => {
                 email: foundUser.email,
                 name: foundUser.name,
                 id: foundUser._id,
-                role: foundUser.role,
+                profilePicture: foundUser.profilePicture,
             },
         });
     } catch (error) {

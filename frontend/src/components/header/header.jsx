@@ -33,7 +33,10 @@ const Header = () => {
             </nav>
             <div className={styles.right}>
                 {darkMode ? <Icon handleClick={() => toggleDarkMode()} variant='light' className='theme' /> : <Icon handleClick={() => toggleDarkMode()} variant='dark' className='theme' />}
-                <Avatar>A</Avatar>
+                <Link to="/profile" className={styles.avatarLink}>
+                    <Avatar>A</Avatar>  {/* Usa la inicial del userId */}
+                </Link>
+                
             </div>
         </header>
     );

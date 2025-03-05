@@ -12,17 +12,19 @@
     "cy:run": "npx cypress run"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.4",
     "axios": "^1.7.9",
+    "framer-motion": "^12.4.9",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-icons": "^5.4.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^7.1.1",
-    "react-toastify": "^11.0.3",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.4"
+    "react-toastify": "^11.0.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

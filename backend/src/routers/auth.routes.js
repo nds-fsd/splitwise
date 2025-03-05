@@ -72,7 +72,8 @@ Router.post('/login', async (req, res) => {
         }
 
         // Compara la contraseña
-        if (!foundUser.comparePassword(password)) {
+        const isMatch = await foundUser.comparePassword(password);
+        if (!isMatch) {
             return res.status(400).json({ error: { password: 'Invalid Password' } });
         }
 

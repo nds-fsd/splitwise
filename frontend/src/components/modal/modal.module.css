@@ -16,8 +16,19 @@
     padding: 18px;
     border-radius: 10px;
     width: 400px;
+    animation: slideIn 0.3s ease-out;
 }
 
 .contentDark {
     background: var(--secondary-bg-dark-mode);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

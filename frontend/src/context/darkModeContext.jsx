@@ -7,9 +7,15 @@ export const useDarkMode = () => {
 };
 
 export const DarkModeContextProvider = ({ children }) => {
-    const [darkMode, setDarkMode] = useState(false);
+    const initialDarkMode = localStorage.getItem("darkMode") === 'true';
+
+    const [darkMode, setDarkMode] = useState(initialDarkMode);
+
     const toggleDarkMode = () => {
-        setDarkMode((prevDarkmode) => !prevDarkmode);
+        setDarkMode((prevDarkmode) => {
+            localStorage.setItem("darkMode", !prevDarkmode);
+            return !prevDarkmode;
+        });
     }
 
     return <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>{children}</DarkModeContext.Provider>;

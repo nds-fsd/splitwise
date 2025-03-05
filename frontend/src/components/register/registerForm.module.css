@@ -1,76 +1,90 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 24px;
-    background-color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1976d2; /* Azul de Material UI */
-  }
-  
-  .label {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    font-weight: 500;
-    color: #424242; /* Gris oscuro */
-  }
-  
-  .input {
-    padding: 10px;
-    border: 1px solid #bdbdbd;
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .input:focus {
-    border-color: #1976d2;
-    box-shadow: 0px 0px 5px rgba(25, 118, 210, 0.5);
-  }
-  
-  .errorMessage {
-    font-size: 12px;
-    color: #d32f2f; /* Rojo de error */
-    margin-top: 4px;
-  }
-  
-  .submitButton {
-    background-color: #1976d2;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .submitButton:hover {
-    background-color: #1565c0;
-  }
-  
-  .checkboxContainer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .previewImage {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #1976d2;
-  }
-  
+.registerContainer {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.registerTitle {
+  text-align: center;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.registerLabel {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.registerInput {
+  width: 100%;
+  padding: 14px; /* Aumentado para más espacio interno */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.registerInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.registerErrorMessage {
+  color: red;
+  font-size: 14px;
+}
+
+.registerSubmitButton {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.registerSubmitButton:hover {
+  background-color: #0056b3;
+}
+
+.registerPreviewImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+}
+.registerInputFile {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  background-color: #f9f9f9;
+  display: block;
+  transition: all 0.2s ease-in-out;
+  -webkit-appearance: none; /* Oculta el texto de selección del archivo en WebKit */
+  appearance: none; /* Oculta el texto de selección en otros navegadores */
+}
+
+.registerInputFile::file-selector-button {
+  display: none; /* Oculta el texto y el botón predeterminado */
+}
+
+.registerInputFile:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

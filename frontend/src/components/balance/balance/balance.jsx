@@ -7,11 +7,11 @@ const Balance = ({ balance }) => {
         <>
             <div className={`${styles.card} ${darkMode ? styles.cardDark : ''}`}>
                 <div className={styles.name}>
-                    <p>{balance?.name}</p>
+                    <p>{balance?.user.name}</p>
                 </div>
                 <span className={styles.dashed}></span>
                 <div className={styles.amount}>
-                    {balance.amount < 0 ? <p>{balance?.amount}</p> : <p>+{balance?.amount}</p>}
+                    {balance.amount < 0 ? <p>{balance?.amount}€</p> : <p>+{balance?.amount}€</p>}
                 </div>
             </div>
         </>

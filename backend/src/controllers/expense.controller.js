@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const createExpense = async (req, res) => {
     try {
+        const { id: userId } = req.jwtPayload;
         const { groupId } = req.params;
         const { description, totalAmount, paidBy, participants } = req.body;
 
@@ -29,6 +30,12 @@ const createExpense = async (req, res) => {
         const groupMembers = groupExists.members.map((m) => m.user.toString());
         if (!groupMembers.includes(paidBy.toString())) {
             return res.status(400).json({ error: "Payer is not part of the group" });
+        }
+
+        // Validate user autenticated belongs to group
+        const creatorExists = groupMembers.some(user => user.toString() === userId)
+        if (!creatorExists) {
+            return res.status(403).json({ error: 'You must be a member of this group to create an expense' });
         }
 
         // Format Participants
@@ -78,6 +85,7 @@ const createExpense = async (req, res) => {
 
 const updateExpense = async (req, res) => {
     try {
+        const { id: userId } = req.jwtPayload;
         const { expenseId, groupId } = req.params;
         const { description, totalAmount, paidBy, participants } = req.body;
 
@@ -107,6 +115,12 @@ const updateExpense = async (req, res) => {
         const groupMembers = groupExists.members.map((m) => m.user.toString());
         if (!groupMembers.includes(paidBy.toString())) {
             return res.status(400).json({ error: "Payer is not part of the group" });
+        }
+
+        // Validate user autenticated belongs to group
+        const isMember = groupMembers.some(user => user.toString() === userId)
+        if (!isMember) {
+            return res.status(403).json({ error: 'You must be a member of this group to update this expense' });
         }
 
         // Format Participants
@@ -157,15 +171,26 @@ const updateExpense = async (req, res) => {
 
 const getExpensesByGroupId = async (req, res) => {
     try {
+        const { id: userId } = req.jwtPayload;
         const { groupId } = req.params;
 
         if (!groupId || !mongoose.Types.ObjectId.isValid(groupId)) {
             return res.status(400).json({ error: "Invalid group ID" });
         }
 
+        const group = await Group.findById(groupId);
+        if (!group) {
+            return res.status(404).json({ error: "Group not found" });
+        }
+
+        const isMember = group.members.some((m) => m.user.toString() === userId);
+        if (!isMember) {
+            return res.status(403).json({ error: "You don't have permission to view expenses from this group" });
+        }
+
         const expenses = await Expense.find({ group: groupId }).populate("participants.user", "name").populate({ path: "group", select: "name description members", populate: { path: "members.user", select: "name" } }).populate("paidBy", "name");
 
-        if (!expenses) { return res.status(404).json({ error: "Expenses not found for this group" }) }
+        if (expenses.length <= 0) { return res.status(404).json({ error: "Expenses not found for this group" }) }
 
         res.status(200).json(expenses);
     } catch (error) {
@@ -176,7 +201,7 @@ const getExpensesByGroupId = async (req, res) => {
 
 const getExpensesByUserId = async (req, res) => {
     try {
-        const { userId } = req.params;
+        const { id: userId } = req.jwtPayload;
 
         if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ error: "Invalid user ID" });
@@ -184,7 +209,7 @@ const getExpensesByUserId = async (req, res) => {
 
         const expenses = await Expense.find({ "participants.user": userId }).populate("participants.user", "name").populate("group", "name description").populate("paidBy", "name");
 
-        if (!expenses) { return res.status(404).json({ error: "Expenses not found for this user" }) }
+        if (expenses.length <= 0) { return res.status(404).json({ error: "Expenses not found for this user" }) }
 
         res.status(200).json(expenses);
     } catch (error) {
@@ -195,6 +220,7 @@ const getExpensesByUserId = async (req, res) => {
 
 const deleteExpense = async (req, res) => {
     try {
+        const { id: userId } = req.jwtPayload;
         const { groupId, expenseId } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(groupId) || !mongoose.Types.ObjectId.isValid(expenseId)) {
@@ -206,7 +232,15 @@ const deleteExpense = async (req, res) => {
             return res.status(404).json({ error: "Expense not found in this group" });
         }
 
-        // TODO: validate if the payer is deleting the expense when JWT is implemented
+        const group = await Group.findById(groupId);
+        if (!group) {
+            return res.status(404).json({ error: "Group not found" });
+        }
+
+        const isMember = group.members.some(member => member.user.toString() === userId);
+        if (!isMember) {
+            return res.status(403).json({ error: "You must be a member of this group to delete expenses" });
+        }
 
         await Expense.findByIdAndDelete(expenseId);
         res.status(200).json({ message: "Expense successfully deleted" });

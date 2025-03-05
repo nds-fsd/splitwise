@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import Icon from '../../icon/icon';
 import styles from './expense.module.css'
 import { deleteGroupExpense, updateGroupExpense } from '../../../utils/expenseApi';
-import Modal from '../../modal/modal';
-import ExpenseForm from '../expenseForm/expenseForm';
 import { toast } from 'react-toastify';
 import ExpenseActions from '../expenseActions/expenseActions';
 import { useDarkMode } from '../../../context/darkModeContext';
+import { useAuth } from '../../../context/userContextAuth';
 
-const Expense = ({ expense, setGroupExpenses }) => {
+const Expense = ({ expense, refreshGroupDetails }) => {
     const [expandedExpenseId, setExpandedExpenseId] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
     const { darkMode } = useDarkMode();
+    const { token } = useAuth();
 
     const groupMembers = expense.group.members.map((member) => member.user);
 
@@ -22,9 +21,9 @@ const Expense = ({ expense, setGroupExpenses }) => {
 
     const handleEditExpense = async (data) => {
         try {
-            const response = await updateGroupExpense(expense.group._id, expense._id, data);
-            setGroupExpenses((groupExpense) => groupExpense.map((e) => (e._id === expense._id ? response : e)));
+            const response = await updateGroupExpense(expense.group._id, expense._id, data, token);
             setIsEditing(false);
+            refreshGroupDetails();
             toast.success('Expense succesfully edited');
         } catch (error) {
             toast.error(error.response.data.error);
@@ -38,8 +37,8 @@ const Expense = ({ expense, setGroupExpenses }) => {
         }
 
         try {
-            await deleteGroupExpense(expense.group._id, expense._id);
-            setGroupExpenses((groupExpense) => groupExpense.filter((e) => e._id !== expense._id));
+            await deleteGroupExpense(expense.group._id, expense._id, token);
+            refreshGroupDetails();
             toast.success('Expense succesfully deleted');
         } catch (error) {
             toast.error(error.response.data.error);
